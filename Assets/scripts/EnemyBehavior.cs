@@ -15,6 +15,7 @@ public class EnemyBehavior : MonoBehaviour
     private bool killMode = false;
     public double attackDuration;
     private double attackStart;
+    public GameObject target;
     
     public float timer;
 
@@ -69,8 +70,8 @@ public class EnemyBehavior : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            playerRB.AddExplosionForce(pushForce, rb.position, 10);
-            playerRB.AddForce(Vector3.up * pushForce / 3);
+            playerRB.AddExplosionForce(pushForce * 100, rb.position, 10);
+            playerRB.AddForce(Vector3.up * pushForce);
             killMode = false;
         }
     }
@@ -84,8 +85,10 @@ public class EnemyBehavior : MonoBehaviour
         
         if (killMode == true && startTimer == true)
         {
-            targetPosition = player.transform.position;
+            targetPosition = target.transform.position;
             rb.transform.LookAt(targetPosition);
+            //rb.transform.rotation = Quaternion.Euler(0, target.transform.rotation.eulerAngles.y, 0);
+            
         }
         
         
